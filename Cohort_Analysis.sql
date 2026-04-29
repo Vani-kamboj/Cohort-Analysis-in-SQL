@@ -1,5 +1,5 @@
 DECLARE @cols AS NVARCHAR(MAX),
-        @query AS NVARCHAR(MAX);
+       @cohort_analysis AS NVARCHAR(MAX);
 
 
 SELECT @cols = STRING_AGG(QUOTENAME(cohort_index), ',') 
@@ -17,7 +17,7 @@ FROM (
 ) AS distinct_indexes;
 
 
-SET @query = N'
+SET @cohort_analysis = N'
 WITH first_purchase AS (
     SELECT 
         c.customer_unique_id,
@@ -74,4 +74,4 @@ PIVOT (
 ) AS pivot_table
 ORDER BY min_date;';
 
-EXEC sp_executesql @query;
+EXEC sp_executesql @cohort_analysis;
